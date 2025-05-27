@@ -37,6 +37,13 @@ cd bug-tracker
 docker compose up --build
 ```
 
+#to launcg the jenkins
+cd jenkins
+docker compose up -d
+
+#to stop 
+docker down
+
 The application will be available at:
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8080
