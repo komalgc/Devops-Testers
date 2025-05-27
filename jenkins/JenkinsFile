@@ -11,7 +11,7 @@ pipeline {
             }
             steps {
                 script {
-                    dir('bug-tracker/backend') {
+                    dir('bug-tracker') {
                         sh 'go test -v ./...'
                     }
                 }
