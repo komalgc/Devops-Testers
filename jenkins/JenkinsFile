@@ -6,14 +6,19 @@ pipeline {
             agent {
                 docker {
                     image 'golang:1.21-alpine'
-                    args '-v $PWD:/go -e GOCACHE=/go/.cache'
                     reuseNode true
                 }
+            }
+            environment {
+                GOCACHE = "${env.WORKSPACE}/.cache"  // Store Go cache in workspace
             }
             steps {
                 script {
                     dir('bugtracker-backend') {
-                        sh 'mkdir -p .cache && go test -v ./...'
+                        sh '''
+                          mkdir -p $GOCACHE
+                          go test -v ./...
+                        '''
                     }
                 }
             }
