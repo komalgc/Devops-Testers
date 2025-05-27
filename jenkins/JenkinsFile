@@ -5,17 +5,15 @@ pipeline {
         stage('Unit Tests -Backend') {
             agent {
                 docker {
-                    image 'snakee/golang-junit:1.21'
+                    image 'golang:1.21-alpine'  // Replace with a stable, supported image
                     reuseNode true
-                }               
+                }
             }
             steps {
                 script {
                     dir('bug-tracker/backend') {
                         sh 'go test -v ./...'
-                   
                     }
-           
                 }
             }
         }
