@@ -2,17 +2,18 @@ pipeline {
     agent any
 
     stages {
-        stage('Unit Tests -Backend') {
+        stage('Unit Tests - Backend') {
             agent {
                 docker {
-                    image 'golang:1.21-alpine'  // Replace with a stable, supported image
+                    image 'golang:1.21-alpine'
+                    args '-v $PWD:/go -e GOCACHE=/go/.cache'
                     reuseNode true
                 }
             }
             steps {
                 script {
                     dir('bugtracker-backend') {
-                        sh 'go test -v ./...'
+                        sh 'mkdir -p .cache && go test -v ./...'
                     }
                 }
             }
