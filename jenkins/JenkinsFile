@@ -16,9 +16,11 @@ pipeline {
                 script {
                     dir('bugtracker-backend') {
                         sh '''
-                          mkdir -p $GOCACHE
-                          go test -v ./... 2>&1 | go-junit-report > test-results.xml
-                        '''
+                                mkdir -p $GOCACHE
+                                go install github.com/jstemmer/go-junit-report@latest
+                                go test -v ./... 2>&1 | ~/go/bin/go-junit-report > test-results.xml
+                           '''
+
                     }
                 }
             }
