@@ -17,12 +17,17 @@ pipeline {
                     dir('bugtracker-backend') {
                         sh '''
                           mkdir -p $GOCACHE
-                          go test -v ./...
+                          go test -v ./... 2>&1 | go-junit-report > test-results.xml
                         '''
                     }
                 }
             }
-        }
+
+            post {
+                always {
+                    junit 'bugtracker-backend/test-results.xml'
+                }
+            }        }
 
 
         stage('Unit Tests - Frontend') {
